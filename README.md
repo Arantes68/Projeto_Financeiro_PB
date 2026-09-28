@@ -60,9 +60,13 @@ Tabelas utilizadas:
 * Pagamentos
 
 ![teste](DataBase.png)
+
 ![teste](PlanoContas_tabela.png)
+
 ![teste](Pagamentos_tabela.png)
+
 ![teste](Recebimentos_tabelas.png)
+
 ![teste](Recebimentos_tabelas_2.png)
 
 ---
@@ -77,6 +81,13 @@ Entre as atividades realizadas estão:
 * Ajuste dos tipos de dados;
 * Organização das tabelas;
 * Preparação para a modelagem dimensional.
+
+![teste](Cadastro_dPlanoContas.png)
+
+![teste](fRecebimentos.png)
+
+![teste](fPagamentos.png)
+
 
 ---
 
