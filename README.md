@@ -59,6 +59,8 @@ Tabelas utilizadas:
 * Recebimentos
 * Pagamentos
 
+![Dashboard Principal](images/DataBase.png)
+
 ---
 
 ## 2️⃣ Tratamento dos Dados
