@@ -135,7 +135,7 @@ Foi adotado o modelo **Star Schema (Esquema Estrela)**, seguindo boas práticas 
 | dCalendario → fRecebimentos  | Data     | ✅ Ativo    |
 | dCalendario → fPagamentos    | Data     | ✅ Ativo    |
 | dPlanoContas → fRecebimentos | ID Conta | ✅ Ativo    |
-| dPlanoContas → fPagamentos   | Conta    | ⚠️ Inativo |
+| dPlanoContas → fPagamentos   | Conta    | ✅ Ativo    |
 
 Todos os relacionamentos utilizam:
 
