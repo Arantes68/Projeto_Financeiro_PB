@@ -60,6 +60,10 @@ Tabelas utilizadas:
 * Pagamentos
 
 ![teste](DataBase.png)
+![teste](PlanoContas_tabela.png)
+![teste](Pagamentos_tabela.png)
+![teste](Recebimentos_tabelas.png)
+![teste](Recebimentos_tabelas_2.png)
 
 ---
 
