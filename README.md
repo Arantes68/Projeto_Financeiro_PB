@@ -269,7 +269,7 @@ Durante este projeto foram aplicados conhecimentos em:
 
 > **Sugestão:** adicione capturas de tela do dashboard nesta seção para apresentar os principais indicadores e páginas do projeto.
 
-```
+
 📷 Home
 
 ![teste](Home.png)
@@ -282,7 +282,6 @@ Durante este projeto foram aplicados conhecimentos em:
 
 ![teste](Detalhamento.png)
 
-```
 
 ---
 
