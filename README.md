@@ -59,7 +59,7 @@ Tabelas utilizadas:
 * Recebimentos
 * Pagamentos
 
-![Dashboard Principal](images/DataBase.png)
+![teste](DataBase.png)
 
 ---
 
