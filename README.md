@@ -291,4 +291,4 @@ Durante este projeto foram aplicados conhecimentos em:
 
 Pós-graduando em Engenharia de Dados e Inteligência Artificial | Apaixonado por Tecnologia, Engenharia de Dados e Análise de Dados.
 
-**LinkedIn:** *[(adicione o link)](https://www.linkedin.com/in/marcosviniciusarantes/)*
+**LinkedIn:** *(https://www.linkedin.com/in/marcosviniciusarantes/)*
