@@ -1,0 +1,33 @@
+expression fxSoma = ```
+		(_varValor_a as number, _varValor_b as number) => 
+		let
+		    Fonte = _varValor_a + _varValor_b
+		in
+		    Fonte
+		```
+	lineageTag: d9a6e7a4-e807-45fe-a958-3e143572ec3d
+	queryGroup: Funções
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+
+expression fx_Pagamentos =
+		(_varFolderPath as text) =>
+		let
+		    Fonte = Excel.Workbook(File.Contents(_varFolderPath), null, true),
+		    Pagamentos_Sheet = Fonte{[Item="Pagamentos",Kind="Sheet"]}[Data],
+		    ColunasRemovidas = Table.RemoveColumns(Pagamentos_Sheet,{"Column15", "Column1"}),
+		    LinhasSuperioresRemovidas = Table.Skip(ColunasRemovidas,1),
+		    CabecalhosPromovidos = Table.PromoteHeaders(LinhasSuperioresRemovidas, [PromoteAllScalars=true]),
+		    ColunasNãoDinamicas = Table.UnpivotOtherColumns(CabecalhosPromovidos, {"ID Conta"}, "Atributo", "Valor"),
+		    TipoAlterado = Table.TransformColumnTypes(ColunasNãoDinamicas,{{"ID Conta", Int64.Type}, {"Atributo", type date}, {"Valor", type number}})
+		in
+		    TipoAlterado
+	lineageTag: 6bb75365-7951-4079-b7df-8df12b3b5405
+	queryGroup: Funções
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Function
+

@@ -1,0 +1,71 @@
+table fRecebimentos
+	lineageTag: cdaee83d-8918-4f8a-af54-22d6cced6d5b
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 01e75da4-2342-4ab5-84a8-d214b48aa30c
+		summarizeBy: none
+		sourceColumn: data
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column plano_contas_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4237927-c7b1-4734-abc1-856cf5030eab
+		summarizeBy: none
+		sourceColumn: plano_contas_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cliente
+		dataType: string
+		lineageTag: da89ac0a-f77f-484b-affe-4493d3beb58b
+		summarizeBy: none
+		sourceColumn: cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: c49c2ed2-1758-4c4b-8683-1f49b284c64c
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_recebido
+		dataType: double
+		lineageTag: 7b3e6baf-4bc1-4df2-b333-308c5bd9eebf
+		summarizeBy: sum
+		sourceColumn: valor_recebido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fRecebimentos = m
+		mode: import
+		queryGroup: Tabelas
+		source =
+				let
+				    Fonte = Folder.Files("C:\Users\User\OneDrive\Documentos\Estudos\Power BI - Financeiro + Fluxo de Caixa\01 - DataBase\Recebimentos"),
+				    ColunaAdicionada = Table.AddColumn(Fonte, "Dados", each Excel.Workbook([Content])),
+				    DadosExpandidos = Table.ExpandTableColumn(ColunaAdicionada, "Dados", {"Name", "Data", "Item", "Kind", "Hidden"}, {"Name.1", "Data", "Item", "Kind", "Hidden"}),
+				    LinhasFiltradas = Table.SelectRows(DadosExpandidos, each ([Kind] = "Table")),
+				    ColunasRemovidas = Table.SelectColumns(LinhasFiltradas,{"Data"}),
+				    DataExpandida = Table.ExpandTableColumn(ColunasRemovidas, "Data", {"data", "plano_contas_id", "cliente", "uf", "valor_recebido"}, {"data.1", "plano_contas_id", "cliente", "uf", "valor_recebido"}),
+				    ColunasRenomeadas = Table.RenameColumns(DataExpandida,{{"data.1", "data"}}),
+				    TipoAlterado = Table.TransformColumnTypes(ColunasRenomeadas,{{"cliente", type text}, {"uf", type text}, {"plano_contas_id", Int64.Type}, {"valor_recebido", type number}})
+				in
+				    TipoAlterado
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

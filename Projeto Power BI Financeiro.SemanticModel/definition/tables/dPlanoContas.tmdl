@@ -1,0 +1,62 @@
+table dPlanoContas
+	lineageTag: 5290b657-d34a-4b6a-bbe8-5ebe6c30be86
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 41966f3b-0774-4db8-b605-c3a975ec2b33
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column movimento
+		dataType: string
+		lineageTag: f5bcef96-f662-4dcb-ac72-b9fdf3f0950c
+		summarizeBy: none
+		sourceColumn: movimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column lancamento
+		dataType: string
+		lineageTag: 78fafa0a-6e23-43e8-a981-21ff2f36fd0b
+		summarizeBy: none
+		sourceColumn: lancamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column conta
+		dataType: string
+		lineageTag: 73225199-0b8a-4818-a195-c1ce604e8a64
+		summarizeBy: none
+		sourceColumn: conta
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 38797df9-bd74-4249-97b7-e252551a12da
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dPlanoContas = m
+		mode: import
+		queryGroup: Tabelas
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\User\OneDrive\Documentos\Estudos\Power BI - Financeiro + Fluxo de Caixa\01 - DataBase\Cadastros\CadastroPlanoContas.xlsx"), null, true),
+				    LinhasFiltradas = Table.SelectRows(Fonte, each ([Name] = "Contas")),
+				    ColunasRemovidas = Table.SelectColumns(LinhasFiltradas,{"Data"}),
+				    DataExpandido = Table.ExpandTableColumn(ColunasRemovidas, "Data", {"Column1", "Column2", "Column3", "Column4", "Column5"}, {"Column1", "Column2", "Column3", "Column4", "Column5"}),
+				    CabeçalhosPromovidos = Table.PromoteHeaders(DataExpandido, [PromoteAllScalars=true]),
+				    TipoAlterado = Table.TransformColumnTypes(CabeçalhosPromovidos,{{"id", Int64.Type}, {"movimento", type text}, {"lancamento", type text}, {"conta", type text}, {"tipo", type text}})
+				in
+				    TipoAlterado
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

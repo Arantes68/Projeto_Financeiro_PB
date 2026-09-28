@@ -1,0 +1,133 @@
+table dCalendario
+	lineageTag: 488314f9-dfb1-43f1-b498-fa4ad02b06f9
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f9abb13b-e2e7-409b-8bb0-87e4f7a8a561
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: 56f24598-4fed-4cf7-bd1b-c1a1b1f008f8
+			defaultHierarchy: LocalDateTable_6a27ea57-e1d9-4f24-9704-218caddd6441.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column NomeDia
+		dataType: string
+		lineageTag: cccbcf6e-dde3-4d02-8c0a-27c39541e8bc
+		summarizeBy: none
+		sourceColumn: NomeDia
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomeMes
+		dataType: string
+		lineageTag: 48ad3cf1-b810-4c76-9887-4dcebfc87b9a
+		summarizeBy: none
+		sourceColumn: NomeMes
+		sortByColumn: NumMes
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesAbreviado
+		dataType: string
+		lineageTag: 17178007-5574-4456-950a-f7e9bb505f46
+		summarizeBy: none
+		sourceColumn: MesAbreviado
+		sortByColumn: NumMes
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaMes
+		dataType: string
+		lineageTag: 7ac8b486-1bcd-42b4-a7bc-9c4dc525921a
+		summarizeBy: none
+		sourceColumn: SemanaMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaAno
+		dataType: string
+		lineageTag: d08135e5-b3fd-44ae-9b86-c2b0d09f44a0
+		summarizeBy: none
+		sourceColumn: SemanaAno
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumMes
+		dataType: int64
+		formatString: 0
+		lineageTag: e571eba9-574c-488d-9ecd-92bc8e157afa
+		summarizeBy: sum
+		sourceColumn: NumMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: 32861d4f-bfe1-45fa-9437-eb78fc7276f2
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e9ddb5d-cf7b-444d-a0c1-d875ec9af27e
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesAno
+		dataType: string
+		lineageTag: bcad7a42-213e-49c8-b801-53b9fb16e44a
+		summarizeBy: none
+		sourceColumn: MesAno
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendario = m
+		mode: import
+		queryGroup: Tabelas
+		source = ```
+				let
+				
+					Fonte = fRecebimentos[data] & fPagamentos[data],
+					DataMin = Date.StartOfYear( List.Min(Fonte) ),
+					DataMax = Date.EndOfYear( List.Max(Fonte) ),
+					QtdeDias = Number.From( DataMax - DataMin ) + 1,
+					ListDates = List.Dates(DataMin, QtdeDias, #duration(1,0,0,0)),
+					ConvertidoTabela = Table.FromList(ListDates, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+					NomeDiaInserido = Table.AddColumn(ConvertidoTabela, "NomeDia", each Text.BeforeDelimiter(Date.DayOfWeekName([Column1]), "-"), type text),
+					NomeMesInserido = Table.AddColumn(NomeDiaInserido, "NomeMes", each Date.MonthName([Column1]), type text),
+					MesAbrevInserido = Table.AddColumn(NomeMesInserido, "MesAbreviado", each Text.Start([NomeMes], 3), type text),
+					SemanaMesInserida = Table.AddColumn(MesAbrevInserido, "SemanaMes", each Text.PadStart( Text.From(Date.WeekOfMonth([Column1])), 2, "0") & "ª - Sem"),
+					SemanaAnoInserida = Table.AddColumn(SemanaMesInserida, "SemanaAno", each Text.PadStart( Text.From(Date.WeekOfYear([Column1])), 2, "0") & "ª - Sem"),
+					NumMesInserido = Table.AddColumn(SemanaAnoInserida, "NumMes", each Date.Month([Column1]), Int64.Type),
+					TrimestreInserido = Table.AddColumn(NumMesInserido, "Trimestre", each Text.PadStart( Text.From(Date.QuarterOfYear([Column1])), 2, "0") & "º - Tri"),
+					AnoInserido = Table.AddColumn(TrimestreInserido, "Ano", each Date.Year([Column1]), Int64.Type),
+					MesAnoInserido = Table.AddColumn(AnoInserido, "MesAno", each Text.Combine({[MesAbreviado], Text.From([Ano], "pt-BR")}, " - "), type text),
+					PriMaiuscula = Table.TransformColumns(MesAnoInserido,{{"NomeDia", Text.Proper, type text}, {"NomeMes", Text.Proper, type text}, {"MesAbreviado", Text.Proper, type text}, {"MesAno", Text.Proper, type text}}),
+					ColunasRenomeadas = Table.RenameColumns(PriMaiuscula,{{"Column1", "Data"}}),
+					TipoAlterado = Table.TransformColumnTypes(ColunasRenomeadas,{{"Data", type date}, {"SemanaMes", type text}, {"SemanaAno", type text}, {"Trimestre", type text}})
+					
+				in
+				
+					TipoAlterado
+				```
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

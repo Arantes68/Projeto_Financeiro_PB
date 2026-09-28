@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Projeto Power BI Financeiro"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2dac4383-142e-4721-933c-435bf2370fa3"
+  }
+}

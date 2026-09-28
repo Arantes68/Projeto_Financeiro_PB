@@ -1,0 +1,86 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 562,
+            "y": 0
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "488314f9-dfb1-43f1-b498-fa4ad02b06f9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 107,
+            "y": 24.5
+          },
+          "nodeIndex": "dPlanoContas",
+          "nodeLineageTag": "5290b657-d34a-4b6a-bbe8-5ebe6c30be86",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 83.517813451015769,
+            "y": 450.399149462109
+          },
+          "nodeIndex": "fRecebimentos",
+          "nodeLineageTag": "cdaee83d-8918-4f8a-af54-22d6cced6d5b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 586,
+            "y": 480.5
+          },
+          "nodeIndex": "fPagamentos",
+          "nodeLineageTag": "f56b049f-8342-4404-bb04-1b3bf64f1603",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 879,
+            "y": 256
+          },
+          "nodeIndex": "Medidas",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 89.19259052056951,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

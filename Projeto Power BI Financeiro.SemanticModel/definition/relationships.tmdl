@@ -1,0 +1,21 @@
+relationship 26eb641b-03f4-0e8e-f2ec-676be651d998
+	fromColumn: fRecebimentos.plano_contas_id
+	toColumn: dPlanoContas.id
+
+relationship bd0c5b08-ba83-fc9d-c7f2-92b7d94538b3
+	fromColumn: fRecebimentos.data
+	toColumn: dCalendario.Data
+
+relationship 7c3213eb-ab5d-d556-b9e7-d68ca5085044
+	fromColumn: fPagamentos.'ID Conta'
+	toColumn: dPlanoContas.id
+
+relationship ed5731da-565a-2f12-8402-39af3297cba2
+	fromColumn: fPagamentos.data
+	toColumn: dCalendario.Data
+
+relationship 56f24598-4fed-4cf7-bd1b-c1a1b1f008f8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dCalendario.Data
+	toColumn: LocalDateTable_6a27ea57-e1d9-4f24-9704-218caddd6441.Date
+

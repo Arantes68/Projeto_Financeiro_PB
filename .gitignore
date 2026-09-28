@@ -1,0 +1,7 @@
+# Power BI Project cache
+.Dataset/
+.Report/
+*.abf
+*.log
+# Segurança - não subir credenciais
+*.pbix

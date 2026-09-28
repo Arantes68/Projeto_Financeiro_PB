@@ -1,0 +1,33 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Funções
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Tabelas
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dPlanoContas","fx_Pagamentos","fRecebimentos","fxSoma","fPagamentos","dCalendario"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dPlanoContas
+ref table fRecebimentos
+ref table fPagamentos
+ref table dCalendario
+ref table Medidas
+ref table DateTableTemplate_5c4ec362-ac62-4019-b7a8-be51c41ce5fa
+ref table LocalDateTable_6a27ea57-e1d9-4f24-9704-218caddd6441
+
+ref cultureInfo pt-BR
+

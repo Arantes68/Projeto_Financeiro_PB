@@ -1,0 +1,51 @@
+table fPagamentos
+	lineageTag: f56b049f-8342-4404-bb04-1b3bf64f1603
+
+	column 'ID Conta'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6cae8af8-1d8b-42b2-a8d0-4d4bdc8dbadc
+		summarizeBy: none
+		sourceColumn: ID Conta
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		lineageTag: 1e5a2dae-6921-413c-bda5-46c321085558
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f3402b62-71bb-4a9f-8052-9129693eeda7
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fPagamentos = m
+		mode: import
+		queryGroup: Tabelas
+		source =
+				let
+				    Fonte = Folder.Files("C:\Users\User\OneDrive\Documentos\Estudos\Power BI - Financeiro + Fluxo de Caixa\01 - DataBase\Pagamentos"),
+				    ColunasMescladas = Table.CombineColumns(Fonte,{"Folder Path", "Name"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Folder_Path"),
+				    PersonalizacaoAdicionada = Table.AddColumn(ColunasMescladas, "Table", each fx_Pagamentos([Folder_Path])),
+				    ColunasRemovidas = Table.SelectColumns(PersonalizacaoAdicionada,{"Table"}),
+				    TableExpandido = Table.ExpandTableColumn(ColunasRemovidas, "Table", {"ID Conta", "Atributo", "Valor"}, {"ID Conta", "data", "Valor"}),
+				    TipoAlterado = Table.TransformColumnTypes(TableExpandido,{{"ID Conta", Int64.Type}, {"data", type date}, {"Valor", type number}})
+				in
+				    TipoAlterado
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

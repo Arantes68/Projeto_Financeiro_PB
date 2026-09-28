@@ -1,0 +1,70 @@
+table Medidas
+	lineageTag: e8d0e98d-ccda-47a8-bd7b-de07dc4added
+
+	measure Receitas = SUM(fRecebimentos[valor_recebido])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 833f23c1-d5bb-4f60-b8fa-bc72c46a0050
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure Saidas = SUM(fPagamentos[Valor])
+		lineageTag: 634e0822-4a17-4bb2-ad74-623449f7c87e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Despesas =
+			CALCULATE(
+			    [Saidas],
+			    FILTER(dPlanoContas,
+			    dPlanoContas[lancamento] = "Despesa"
+			    )
+			)
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 88947671-911b-471b-a996-413d337a3e4d
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure Custos = ```
+			
+			  CALCULATE(
+			    [Saidas],
+			    FILTER(dPlanoContas,
+			    dPlanoContas[lancamento] = "Custo"
+			    )
+			  )
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: dea1e5d5-5404-4637-90f3-750cb649a84d
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure Lucro = [Receitas] - [Custos] - [Despesas]
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: ffffd78d-4425-443c-a94b-756f68a31e3d
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Margem Bruta' = [Receitas] - [Custos]
+		lineageTag: e69cdc87-a511-4c94-8321-9935161d0b29
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Lucro' = [Lucro] / [Receitas]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 04dc2a08-b258-4c16-b1fe-eab0e6dc7e36
+
+	column Value
+		formatString: 0
+		lineageTag: 417e0ee9-8c3d-48dc-a188-48596643e4b7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = calculated
+		mode: import
+		source = {0}
+
+	annotation PBI_Id = 3bac7037c06d4d85b9d41db750206b92
+
