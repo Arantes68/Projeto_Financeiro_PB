@@ -103,6 +103,9 @@ Principais atributos:
 * Número do Mês
 * Mês/Ano
 
+![teste](dCalendario.png)
+
+
 ---
 
 ## 4️⃣ Modelagem dos Dados
@@ -140,6 +143,10 @@ Todos os relacionamentos utilizam:
 * Filtragem unidirecional
 * Modelo dimensional
 
+
+![teste](Modelagem.png)
+
+
 ---
 
 # 📐 Medidas DAX
@@ -160,6 +167,10 @@ Durante o desenvolvimento foram criadas medidas utilizando funções como:
 * Margem Bruta
 * Lucro
 * % Lucro
+
+
+![teste](Tabelas.png)
+
 
 ---
 
@@ -259,17 +270,18 @@ Durante este projeto foram aplicados conhecimentos em:
 > **Sugestão:** adicione capturas de tela do dashboard nesta seção para apresentar os principais indicadores e páginas do projeto.
 
 ```
-📷 Dashboard Principal
+📷 Home
 
-(Imagem)
+![teste](Home.png)
 
-📷 Fluxo de Caixa
+📷 Visão geral
 
-(Imagem)
+![teste](Visao_geral.png)
 
-📷 Modelagem dos Dados
+📷 Detalhamento
 
-(Imagem)
+![teste](Detalhamento.png)
+
 ```
 
 ---
@@ -278,8 +290,6 @@ Durante este projeto foram aplicados conhecimentos em:
 
 **Marcos Vinicius**
 
-Analista de Monitoramento (NOC) | Pós-graduando em Engenharia de Dados e Inteligência Artificial | Apaixonado por Business Intelligence, Engenharia de Dados e Análise de Dados.
+Pós-graduando em Engenharia de Dados e Inteligência Artificial | Apaixonado por Tecnologia, Engenharia de Dados e Análise de Dados.
 
-**LinkedIn:** *(adicione o link)*
-
-**GitHub:** *(adicione o link)*
+**LinkedIn:** *[(adicione o link)](https://www.linkedin.com/in/marcosviniciusarantes/)*
